@@ -8,11 +8,11 @@ std::string addBaseB(const std::string& num1, const std::string& num2, int base)
     // Accounting when one of the values has a different length to the other number 
 
     while (n1.length() < n2.length()) {
-        n1 = n1 + '0'; 
+        n1 = '0' + n1; 
     }
 
     while (n2.length() < n1.length()) {
-        n2 = n2 + '0';
+        n2 = '0' + n2;
     }
 
     // Initialise result and carry
@@ -45,12 +45,12 @@ return result;
 std::string subBaseB(const std::string& num1, const std::string& num2, int base) {
     std::string n1 = num1, n2 = num2; 
 
-    while(n1.length() < n2.length()) {
-        n1 = n1 + '0';
+   while (n1.length() < n2.length()) {
+        n1 = '0' + n1; 
     }
-    
+
     while (n2.length() < n1.length()) {
-        n2 = n2 + '0';
+        n2 = '0' + n2;
     }
 
     std::string result = ""; 
@@ -116,19 +116,13 @@ std::string karatsuba(std::string num1, std::string num2, int base) {
 
 
 int main() {
-    int val1 = 0;
-    int val2 = 0; 
-    int base = 0;
+    std::string n1,n2;
+    int base;
+    std::cin >> n1 >> n2 >>  base;
 
-    std::cout << "Enter Value 1: " << std::endl;
-    std::cin >> val1;
-    std::cout << "Enter Value 2: " << std::endl;
-    std::cin >> val2; 
-    std::cout << "Enter Base: " << std::endl;
-    std::cin >> base;
-
-    std::cout << "School addition result: " << addBaseB(std::to_string(val1), std::to_string(val2), base) << std::endl;
-    std::cout << "Substraction result: " << subBaseB(std::to_string(val1), std::to_string(val2), base) << std::endl;
+    std::cout << addBaseB(n1, n2, base) << std::endl;
+    std::cout << subBaseB(n1, n2, base) << std::endl;
+    std::cout << karatsuba(n1, n2, base) << std:: endl;
 
 }
 
