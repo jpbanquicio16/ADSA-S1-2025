@@ -120,9 +120,9 @@ int main() {
     int base;
     std::cin >> n1 >> n2 >>  base;
 
-    std::cout << addBaseB(n1, n2, base) << std::endl;
-    std::cout << subBaseB(n1, n2, base) << std::endl;
-    std::cout << karatsuba(n1, n2, base) << std:: endl;
+    std::cout << addBaseB(n1, n2, base) << " ";
+    std::cout << subBaseB(n1, n2, base) << " ";
+    std::cout << karatsuba(n1, n2, base);
 
 }
 
