@@ -71,7 +71,7 @@ std::string subBaseB(const std::string& num1, const std::string& num2, int base)
          result =  std::to_string(diff) + result;
     }
 
-    while (n1.length() > 1 && result[0] == '0') {
+    while (result.length() > 1 && result[0] == '0') {
         result = result.substr(1);
     }
    
