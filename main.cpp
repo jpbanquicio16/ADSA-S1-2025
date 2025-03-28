@@ -79,6 +79,41 @@ std::string subBaseB(const std::string& num1, const std::string& num2, int base)
 
 }
 
+std::string karatsuba(std::string num1, std::string num2, int base) {
+  size_t n = std::max(num1.size(), num2.size());
+  if (n == 1) {
+    int mul = (num1[0] - '0') * (num2[0] - '0');
+    if (mul < base)
+      return std::to_string(mul);
+    else {
+      // Handle the case where multiplication results in a number >= base
+      int secondDigit = mul % base;
+      int firstDigit = mul / base;
+      return std::to_string(firstDigit) + std::to_string(secondDigit);
+    }
+  }
+  while (num1.size() < n) num1.insert(0, "0");
+  while (num2.size() < n) num2.insert(0, "0");
+  std::string a = num1.substr(0, n / 2);
+  std::string b = num1.substr(n / 2, n - n / 2);
+  std::string c = num2.substr(0, n / 2);
+  std::string d = num2.substr(n / 2, n - n / 2);
+  std::string ac = karatsuba(a, c, base);
+  std::string bd = karatsuba(b, d, base);
+  std::string abcd =
+      karatsuba(addBaseB(a, b, base), addBaseB(c, d, base), base);
+  abcd = subBaseB(abcd, addBaseB(ac, bd, base), base);
+  size_t k = n - n / 2;
+  for (size_t i = 0; i < 2 * k; i++) ac += "0";  // Multiply ac by B^2k
+  for (size_t i = 0; i < k; i++) abcd += "0";    // Multiply abcd by B^k
+  std::string result = addBaseB(addBaseB(ac, abcd, base), bd, base);
+
+  // Remove leading zeros from result
+  size_t startpos = result.find_first_not_of("0");
+  if (startpos != std::string::npos) result = result.substr(startpos);
+  return result.empty() ? "0" : result;
+}
+
 
 int main() {
     int val1 = 0;
