@@ -22,21 +22,21 @@ private:
         return node ? getHeight(node->lChild) - getHeight(node->rChild) : 0;
     }
 
-    Node* rightRotate(Node* y) {
-        Node* x = y->lChild;
-        Node* T2 = x->rChild;
-        x->rChild = y;
-        y->lChild = T2;
+    Node* leftRotate(Node* y) {
+        Node* x = y->rChild;
+        Node* T2 = x->lChild;
+        x->lChild = y;
+        y->rChild = T2;
         y->height = 1 + std::max(getHeight(y->lChild), getHeight(y->rChild));
         x->height = 1 + std::max(getHeight(x->lChild), getHeight(x->rChild));
         return x;
     }
 
-    Node* leftRotate(Node* x) {
-        Node* y = x->rChild;
-        Node* T2 = y->lChild;
-        y->lChild = x;
-        x->rChild = T2;
+    Node* rightRotate(Node* x) {
+        Node* y = x->lChild;
+        Node* T2 = y->rChild;
+        y->rChild = x;
+        x->lChild = T2;
         x->height = 1 + std::max(getHeight(x->lChild), getHeight(x->rChild));
         y->height = 1 + std::max(getHeight(y->lChild), getHeight(y->rChild));
         return y;
@@ -46,7 +46,7 @@ private:
         if (!node) return new Node(key);
         if (key < node->data) node->lChild = insert(node->lChild, key);
         else if (key > node->data) node->rChild = insert(node->rChild, key);
-        else return node; // duplicates not allowed
+        else return node;
 
         node->height = 1 + std::max(getHeight(node->lChild), getHeight(node->rChild));
         int balance = getBalance(node);
@@ -65,9 +65,9 @@ private:
         return node;
     }
 
-    Node* minValueNode(Node* node) {
+    Node* maxValueNode(Node* node) {
         Node* current = node;
-        while (current->lChild) current = current->lChild;
+        while (current->rChild) current = current->rChild;
         return current;
     }
 
@@ -81,9 +81,9 @@ private:
                 delete root;
                 return temp;
             } else {
-                Node* temp = minValueNode(root->rChild);
+                Node* temp = maxValueNode(root->lChild);
                 root->data = temp->data;
-                root->rChild = deleteNode(root->rChild, temp->data);
+                root->lChild = deleteNode(root->lChild, temp->data);
             }
         }
 
