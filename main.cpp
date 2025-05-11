@@ -78,11 +78,8 @@ private:
         else {
             if (!root->lChild || !root->rChild) {
                 Node* temp = root->lChild ? root->lChild : root->rChild;
-                if (!temp) {
-                    temp = root;
-                    root = nullptr;
-                } else *root = *temp;
-                delete temp;
+                delete root;
+                return temp;
             } else {
                 Node* temp = minValueNode(root->rChild);
                 root->data = temp->data;
